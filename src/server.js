@@ -1,6 +1,12 @@
 const express = require('express')
+const mongoose = require('mongoose')
 
 const app = express()
+
+mongoose.connect("mongodb+srv://vargani1234:Vargani@1234@vargani-staging.mzbui.mongodb.net/vargani?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 // For POST  requests
 app.use(express.json())

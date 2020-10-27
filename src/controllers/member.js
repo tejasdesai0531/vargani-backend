@@ -1,3 +1,4 @@
+const Member = require('../models/Member')
 
 async function getMember() {
 
@@ -14,13 +15,16 @@ async function addMember(memberOpts) {
         throw new Error("Did not supply isOwner")
     }
 
-    const createdUser = {
+    const member = {
         firstName: memberOpts.firstName,
         lastName: memberOpts.lastName,
         isOwner: memberOpts.isOwner
     }
 
-    return createdUser
+    let memberModel = new Member(member)
+    await memberModel.save()
+
+    return memberModel
 }
 
 module.exports = {
