@@ -10,6 +10,10 @@ const memberSchema = new mongoose.Schema({
     isOwner: {
         type: Boolean
     }
+},{
+    collection : 'Member',
+    usePushEach: true,
+    timestamps : {createdAt: 'created_at', updatedAt: 'updated_at'}
 })
 
 module.exports = mongoose.model('Member', memberSchema)
