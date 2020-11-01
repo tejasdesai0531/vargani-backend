@@ -1,3 +1,4 @@
+var PORT = process.env.PORT || 3000
 const express = require('express')
 const mongoose = require('mongoose')
 
@@ -15,6 +16,6 @@ app.use(express.urlencoded({extended: true}))
 // Routes
 app.use('/api', require('./routes/api'))
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("App listening on 3000...")
 })
