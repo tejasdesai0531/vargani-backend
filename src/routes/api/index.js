@@ -2,7 +2,7 @@ const { Router } = require('express')
 
 const route = Router()
 
-route.use('/member', require('./member'))
+route.use('/rooms', require('./rooms'))
 
 
 

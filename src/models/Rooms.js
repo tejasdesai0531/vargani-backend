@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
-const memberSchema = new mongoose.Schema({
+const roomSchema = new mongoose.Schema({
+    roomNumber: {
+        type: Number,
+        required: true
+    },
     firstName: {
         type: String
     },
@@ -11,9 +15,9 @@ const memberSchema = new mongoose.Schema({
         type: Boolean
     }
 },{
-    collection : 'Member',
+    collection : 'Rooms',
     usePushEach: true,
     timestamps : {createdAt: 'created_at', updatedAt: 'updated_at'}
 })
 
-module.exports = mongoose.model('Member', memberSchema)
+module.exports = mongoose.model('Rooms', roomSchema)
