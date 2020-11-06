@@ -6,13 +6,16 @@ const roomSchema = new mongoose.Schema({
         required: true
     },
     firstName: {
-        type: String
+        type: String,
+        required: true
     },
     lastName: {
-        type: String
+        type: String,
+        required: true
     },
     isOwner: {
-        type: Boolean
+        type: Boolean,
+        required: true
     }
 },{
     collection : 'Rooms',
