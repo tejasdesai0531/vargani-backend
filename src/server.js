@@ -9,6 +9,10 @@ mongoose.connect("mongodb+srv://vargani1234:Vargani@1234@vargani-staging.mzbui.m
     useUnifiedTopology: true
 })
 
+if(process.argv.length > 2) {
+    PORT = parseInt(process.argv[2])
+}
+
 // For POST  requests
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -17,5 +21,5 @@ app.use(express.urlencoded({extended: true}))
 app.use('/api', require('./routes/api'))
 
 app.listen(PORT, () => {
-    console.log("App listening on 3000...")
+    console.log("App listening on " + PORT)
 })
