@@ -13,6 +13,10 @@ if(process.argv.length > 2) {
     PORT = parseInt(process.argv[2])
 }
 
+app.get('/', (req, res) => {
+    res.send("From port : " + PORT)
+})
+
 // For POST  requests
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
