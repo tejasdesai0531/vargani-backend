@@ -1,6 +1,7 @@
 var PORT = process.env.PORT || 3000
 const express = require('express')
 const mongoose = require('mongoose')
+const morgan = require('morgan')
 
 const app = express()
 
@@ -13,8 +14,12 @@ if(process.argv.length > 2) {
     PORT = parseInt(process.argv[2])
 }
 
-app.get('/', (req, res) => {
-    res.send("From port : " + PORT)
+app.use(morgan('dev'))
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 })
 
 // For POST  requests
