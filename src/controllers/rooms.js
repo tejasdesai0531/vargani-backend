@@ -9,76 +9,37 @@ async function getRoom(roomOpts) {
 
     if(!doc) throw new Error("Room number not found")
 
-    let response = {
-        error: false,
-        roomDetails: doc
-    }
-
-    return response
+    return doc
 }
 
-async function addRoom(roomOpts) {
-    if(!roomOpts.roomNumber) {
-        throw new Error("Did not supply room number")
-    }
-    if(!roomOpts.firstName) {
-        throw new Error("Did not supply firstName")
-    }
-    if(!roomOpts.lastName) {
-        throw new Error("Did not supply lastName")
-    }
-    if(!roomOpts.isOwner) {
-        throw new Error("Did not supply isOwner")
-    }
+async function addRoom(roomNumber, firstName, lastName, isOwner) {
 
     const room = {
-        roomNumber: roomOpts.roomNumber,
-        firstName: roomOpts.firstName,
-        lastName: roomOpts.lastName,
-        isOwner: roomOpts.isOwner
+        roomNumber: roomNumber,
+        firstName: firstName,
+        lastName: lastName,
+        isOwner: isOwner
     }
 
     let roomModel = new Room(room)
-    await roomModel.save()
+    let result = await roomModel.save()
 
-    let response = {
-        error: false,
-        message: "Room created successfully"
-    }
-
-    return response
+    return result
 }
 
-async function editRoom(roomOpts) {
-    if(!roomOpts.roomNumber) {
-        throw new Error("Did not supply room number")
-    }
-    if(!roomOpts.firstName) {
-        throw new Error("Did not supply firstName")
-    }
-    if(!roomOpts.lastName) {
-        throw new Error("Did not supply lastName")
-    }
-    if(!roomOpts.isOwner) {
-        throw new Error("Did not supply isOwner")
-    }
+async function editRoom(roomNumber, firstName, lastName, isOwner) {
 
-    let doc = await Room.findOne({ "roomNumber": roomOpts.roomNumber })
+    let doc = await Room.findOne({ "roomNumber": roomNumber })
     
     if(!doc) throw new Error("Room number not found")
 
-    doc.firstName = roomOpts.firstName,
-    doc.lastName = roomOpts.lastName,
-    doc.isOwner = roomOpts.isOwner
+    doc.firstName = firstName,
+    doc.lastName = lastName,
+    doc.isOwner = isOwner
 
-    await doc.save()
+    let result = await doc.save()
 
-    let response = {
-        error: false,
-        message: "Room updated successfully"
-    }
-
-    return response
+    return result
 }
 
 module.exports = {

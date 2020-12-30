@@ -1,12 +1,20 @@
 const { Router } = require('express')
 const { addFestival, editFestival, getAllFestivals } = require('../../controllers/festivals')
+const { festivalValidationSchema } = require('../../helpers/validation_schema')
 
 const route = Router()
 
 route.post('/addFestival', async (req, res) => {
     try {
-        const result = await addFestival(req.body)
-        res.send(result)
+        const data = await festivalValidationSchema.validateAsync(req.body)
+        const result = await addFestival(data.name, data.year)
+
+        let response = {
+            error: false,
+            message: "Festival added successfully",
+            result: result
+        }
+        res.send(response)
     } catch (error) {
         res.send({
             error: true,
@@ -17,8 +25,15 @@ route.post('/addFestival', async (req, res) => {
 
 route.post('/editFestival', async(req, res) => {
     try {
-        const result = await editFestival(req.body)
-        res.send(result)
+        const data = await festivalValidationSchema.validateAsync(req.body, {"context": {"action": "edit"}})
+        const result = await editFestival(data.festival_id, data.name, data.year)
+        
+        let response = {
+            error: false,
+            message: "Festival updated successfully",
+            result: result
+        }
+        return response
     } catch (error) {
         res.send({
             error: true,
@@ -30,7 +45,13 @@ route.post('/editFestival', async(req, res) => {
 route.get('/getAllFestivals', async(req, res) => {
     try {
         const result = await getAllFestivals()
-        res.send(result)
+        
+        let response = {
+            error: false,
+            festivals: result
+        }
+        res.send(response)
+
     } catch (error) {
         res.send({
             error: true,

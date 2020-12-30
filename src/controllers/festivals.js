@@ -3,68 +3,63 @@ const Festival = require('../models/Festivals')
 async function getAllFestivals() {
 
     let doc = await Festival.find({})
-    let response = {
-        error: false,
-        festivals: doc
-    }
 
-    return response
+    return doc
 
 }
 
-async function addFestival(festivalOpts) {
-    if(!festivalOpts.name) {
-        throw new Error("Did not supply festival name")
-    }
-    if(!festivalOpts.year) {
-        throw new Error("Did not supply year")
-    }
+async function getFestival(festival_id) {
+
+    let doc = await Festival.findOne({_id: festival_id}).catch(err => {
+
+        if (err.message.indexOf('Cast to ObjectId failed') !== -1)
+            throw new Error("Festival not found")
+        else
+            throw new Error(err.message)
+
+    })
+    
+    return doc
+}
+
+async function addFestival(name, year) {
 
     let festival = {
-        "name": festivalOpts.name,
-        "year": festivalOpts.year
+        "name": name,
+        "year": year
     }
 
     let festivalModel = new Festival(festival)
-    await festivalModel.save()
+    let result = await festivalModel.save()
 
-    let response = {
-        error: false,
-        message: "Festival added successfully"
-    }
-
-    return response
+    return result
 }
 
-async function editFestival(festivalOpts) {
+async function editFestival(festival_id, name, year) {
 
-    if(!festivalOpts.festival_id) {
-        throw new Error("Did not supply festival id")
-    }
+    let doc = await Festival.findById(festival_id).catch(err => {
 
-    if(!festivalOpts.name) {
-        throw new Error("Did not supply festival name")
-    }
+        if (err.message.indexOf('Cast to ObjectId failed') !== -1)
+            throw new Error("Festival not found")
+        else
+            throw new Error(err.message)
 
-    let doc = await Festival.findById(festivalOpts.festival_id)
+    })
 
     if(!doc) throw new Error("Festival not found")
 
-    doc.name = festivalOpts.name
+    doc.name = name
+    doc.year = year
 
-    await doc.save()
+    let result = await doc.save()
 
-    let response = {
-        error: false,
-        message: "Festival updated successfully"
-    }
-
-    return response
+    return result
 
 }
 
 module.exports = {
     addFestival,
     editFestival,
-    getAllFestivals
+    getAllFestivals,
+    getFestival
 }
