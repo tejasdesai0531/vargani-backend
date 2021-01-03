@@ -43,6 +43,7 @@ route.post('/editFestival', async(req, res) => {
 })
 
 route.get('/getAllFestivals', async(req, res) => {
+    console.log(hii)
     try {
         const result = await getAllFestivals()
         
