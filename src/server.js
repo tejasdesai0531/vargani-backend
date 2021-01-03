@@ -1,7 +1,6 @@
 const PORT = process.env.PORT || 3000
 const express = require('express')
 const mongoose = require('mongoose')
-const morgan = require('morgan')
 
 const app = express()
 
@@ -15,6 +14,7 @@ mongoose.connect("mongodb+srv://vargani1234:Vargani@1234@vargani-staging.mzbui.m
 // }
 
 if (process.env.NODE_ENV !== "production") {
+    const morgan = require('morgan')
     app.use(morgan('dev'))
 }   
 
