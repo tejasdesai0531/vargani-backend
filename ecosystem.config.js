@@ -50,7 +50,7 @@ module.exports = {
       ref: 'origin/develop',
       repo: 'https://github.com/tejasdesai0531/vargani-backend.git',
       path: '/home/ubuntu/Vargani-Staging1',
-      'post-deploy': 'npm install --production && pm2 startOrRestart ecosystem.config.js --only Vargani-Staging1',
+      'post-deploy': 'npm install --production && pm2 startOrRestart ecosystem.config.js --only Vargani-Staging1 --watch',
     }
   }
 };
