@@ -25,7 +25,7 @@ module.exports = {
     staging: {
       key: '../vargani001.pem',
       user: 'ubuntu',
-      host: '100.26.216.70',
+      host: '54.152.125.151',
       ref: 'origin/develop',
       repo: 'https://github.com/tejasdesai0531/vargani-backend.git',
       path: '/home/ubuntu/Vargani-Staging',
