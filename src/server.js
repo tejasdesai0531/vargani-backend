@@ -1,4 +1,4 @@
-var PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 const express = require('express')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
@@ -10,11 +10,13 @@ mongoose.connect("mongodb+srv://vargani1234:Vargani@1234@vargani-staging.mzbui.m
     useUnifiedTopology: true
 })
 
-if(process.argv.length > 2) {
-    PORT = parseInt(process.argv[2])
-}
+// if(process.argv.length > 2) {
+//     PORT = parseInt(process.argv[2])
+// }
 
-app.use(morgan('dev'))
+if (process.env.NODE_ENV !== "production") {
+    app.use(morgan('dev'))
+}   
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
